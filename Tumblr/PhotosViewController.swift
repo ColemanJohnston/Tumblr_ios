@@ -9,7 +9,7 @@
 import UIKit
 import AlamofireImage
 
-class PhotosViewController: UIViewController, UITableViewDataSource {
+class PhotosViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     var posts: [[String: Any]] = []
     
@@ -19,6 +19,7 @@ class PhotosViewController: UIViewController, UITableViewDataSource {
         super.viewDidLoad()
         
         tableView.dataSource = self
+        tableView.delegate = self
 
         // Initialize a UIRefreshControl
         let refreshControl = UIRefreshControl()
@@ -114,7 +115,18 @@ class PhotosViewController: UIViewController, UITableViewDataSource {
         
         return cell
     }
-
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let vc = segue.destination as! PhotoDetailsViewController
+        let cell = sender as! PhotoCell
+        vc.detailImage = cell.images.image
+    }
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
