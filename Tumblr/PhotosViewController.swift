@@ -137,7 +137,12 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         // Add a UILabel for the date here
         // Use the section number to get the right URL
         // let label = ...
+        let post = posts[section]
+        let date = post["date"] as! String
+        let label = UILabel(frame: CGRect(x: 50, y: 10, width: 280, height: 30))
+        label.text = date
         
+        headerView.addSubview(label)
         return headerView
     }
     
